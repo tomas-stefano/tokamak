@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 require 'json'
 
-module Restfulie::Common::Converter::Test
+module Tokamak::Test
   class SimpleClass
     attr_accessor :id, :title, :updated
     def initialize(id,title,updated)
@@ -10,7 +10,7 @@ module Restfulie::Common::Converter::Test
   end
 end
 
-describe Restfulie::Common::Converter do
+describe Tokamak do
   describe 'JSON' do
 
     describe "Collection" do
@@ -54,7 +54,7 @@ describe Restfulie::Common::Converter do
           end
         end
 
-        json = Restfulie::Common::Converter::Json.to_hash(json)
+        json = Tokamak::Json.to_hash(json)
         json.id.should == "http://example.com/json"
         json.title.should == "Feed"
         json.author.first.name.should == "John Doe"
@@ -92,7 +92,7 @@ describe Restfulie::Common::Converter do
           member.link("image", "http://example.com/image/2", :type => "application/json")                                
         end
         
-        entry = Restfulie::Common::Converter::Json.to_hash(entry)
+        entry = Tokamak::Json.to_hash(entry)
         entry.id.should == "uri:1"
         entry.title.should == "a great article"
       end
@@ -114,7 +114,7 @@ describe Restfulie::Common::Converter do
           end
         end
     
-        entry = Restfulie::Common::Converter::Json.to_hash(entry)
+        entry = Tokamak::Json.to_hash(entry)
         entry.id.should == "uri:1"
         entry.title.should == "a great article"
         
@@ -138,7 +138,7 @@ describe Restfulie::Common::Converter do
         an_article = {:id => 1, :title => "a great article", :updated => time}
         
         entry = to_json(an_article, :recipe => :simple_entry)
-        entry = Restfulie::Common::Converter::Json.to_hash(entry)
+        entry = Tokamak::Json.to_hash(entry)
                 
         entry.id.should == "uri:1"
         entry.title.should == "a great article"
@@ -158,15 +158,15 @@ describe Restfulie::Common::Converter do
   end
 
   def to_json(*args, &recipe)
-    Restfulie::Common::Converter::Json.to_json(*args, &recipe)
+    Tokamak::Json.to_json(*args, &recipe)
   end
 
   def describe_recipe(*args, &recipe)
-    Restfulie::Common::Converter::Json.describe_recipe(*args, &recipe)
+    Tokamak::Json.describe_recipe(*args, &recipe)
   end
   
   def simple_object(*args)
-    Restfulie::Common::Converter::Test::SimpleClass.new(*args)
+    Tokamak::Test::SimpleClass.new(*args)
   end
 
 end

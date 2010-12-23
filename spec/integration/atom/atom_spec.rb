@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-module Restfulie::Common::Converter::Test
+module Tokamak::Test
   class SimpleClass
     attr_accessor :id, :title, :updated
     def initialize(id,title,updated)
@@ -9,7 +9,7 @@ module Restfulie::Common::Converter::Test
   end
 end
 
-describe Restfulie::Common::Converter do
+describe Tokamak do
   describe 'Atom' do
 
     describe "Feed" do
@@ -159,7 +159,7 @@ describe Restfulie::Common::Converter do
       it "should raise error for converter without recipe" do
         lambda {
           to_atom
-        }.should raise_error(Restfulie::Common::Error::ConverterError, "Recipe required")
+        }.should raise_error(Tokamak::Error::ConverterError, "Recipe required")
       end
       
       it "raise error to invalid atom type" do
@@ -176,23 +176,23 @@ describe Restfulie::Common::Converter do
             member.link("image", "http://example.com/image/2", :type => "application/atom+xml")                                
           end
           
-          Restfulie::Common::Converter::Atom.to_atom(obj, :recipe => :simple_entry, :atom_type => :foo)
-        }.should raise_error(Restfulie::Common::Error::ConverterError, "Undefined atom type foo")
+          Tokamak::Atom.to_atom(obj, :recipe => :simple_entry, :atom_type => :foo)
+        }.should raise_error(Tokamak::Error::ConverterError, "Undefined atom type foo")
       end
     end
 
   end
 
   def to_atom(*args, &recipe)
-    Restfulie::Common::Converter::Atom.to_atom(*args, &recipe)
+    Tokamak::Atom.to_atom(*args, &recipe)
   end
 
   def describe_recipe(*args, &recipe)
-    Restfulie::Common::Converter::Atom.describe_recipe(*args, &recipe)
+    Tokamak::Atom.describe_recipe(*args, &recipe)
   end
   
   def simple_object(*args)
-    Restfulie::Common::Converter::Test::SimpleClass.new(*args)
+    Tokamak::Test::SimpleClass.new(*args)
   end
 
 end

@@ -1,5 +1,8 @@
 require 'tokamak/xml'
+require 'tokamak/json'
+require 'tokamak/atom'
 require 'tokamak/values'
+require 'tokamak/representation'
 
 module Tokamak
   
