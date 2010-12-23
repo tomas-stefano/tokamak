@@ -57,20 +57,52 @@ describe Tokamak do
         entry["article"]["title"].should == "a great article"
       end
     
-    end
-    it 'should y' do
-      execute {
-        puts "invoking"
-        # collection([Object.new]) do |col|
-        # end
-      }
-    end
+      it "should be able to declare links inside values block" do
+        an_article = {:article => {:id => 1, :title => "a great article"}}
+        
+        entry = to_xml(an_article) do |member, article|
+          member.values do |values|
+            values.id      "uri:#{article[:article][:id]}"            
+            values.title   article[:article][:title]
   
-    def execute(&block)
-      where = Object.new.extend(Tokamak::Xml::Helpers)
-      where.instance_eval &block
+            values.domain("xmlns" => "http://a.namespace.com") {
+              member.link("image", "http://example.com/image/1")
+              member.link("image", "http://example.com/image/2", :type => "application/atom+xml")
+            }
+          end
+          
+        end
+        
+        entry = Hash.from_xml entry
+        entry["article"]["id"].should == "uri:1"
+        entry["article"]["title"].should == "a great article"
+        entry["article"]["domain"]["link"].size.should == 2
+      end
+      
+      it "should create an entry from an already declared recipe" do
+        describe_recipe(:simple_entry) do |member, article|
+          member.values do |values|
+            values.id      "uri:#{article[:article][:id]}"            
+            values.title   article[:article][:title]
+            values.updated article[:article][:updated]
+          end
+          
+          member.link("image", "http://example.com/image/1")
+          member.link("image", "http://example.com/image/2", :type => "application/atom+xml")                                
+        end
+       
+        time = Time.now
+        an_article = {:article => {:id => 1, :title => "a great article", :updated => time}}
+        
+        entry = to_xml(an_article, :atom_type => :entry, :recipe => :simple_entry)
+        
+        entry = Hash.from_xml entry
+        entry["article"]["id"].should == "uri:1"
+        entry["article"]["title"].should == "a great article"
+      end
+    
     end
-  
+      
   end
   
   def to_xml(*args, &recipe)
@@ -149,58 +181,3 @@ end
   # 
   #   end
   # 
-
-
-  # 
-  #     it "should be able to declare links inside values block" do
-  #       an_article = {:article => {:id => 1, :title => "a great article"}}
-  #       
-  #       entry = to_xml(an_article) do |member, article|
-  #         member.values do |values|
-  #           values.id      "uri:#{article[:article][:id]}"            
-  #           values.title   article[:article][:title]
-  # 
-  #           values.domain("xmlns" => "http://a.namespace.com") {
-  #             member.link("image", "http://example.com/image/1")
-  #             member.link("image", "http://example.com/image/2", :type => "application/atom+xml")
-  #           }
-  #         end
-  #         
-  #       end
-  #       
-  #       entry = Hash.from_xml entry
-  #       entry["article"]["id"].should == "uri:1"
-  #       entry["article"]["title"].should == "a great article"
-  #       entry.article.domain.links.image.should_not be_nil
-  #       entry.article.domain.links.non_existant.should be_nil
-  #     end
-  #     
-  #     it "should create an entry from an already declared recipe" do
-  #       describe_recipe(:simple_entry) do |member, article|
-  #         member.values do |values|
-  #           values.id      "uri:#{article[:article][:id]}"            
-  #           values.title   article[:article][:title]
-  #           values.updated article[:article][:updated]
-  #         end
-  #         
-  #         member.link("image", "http://example.com/image/1")
-  #         member.link("image", "http://example.com/image/2", :type => "application/atom+xml")                                
-  #       end
-  #      
-  #       time = Time.now
-  #       an_article = {:article => {:id => 1, :title => "a great article", :updated => time}}
-  #       
-  #       entry = to_xml(an_article, :atom_type => :entry, :recipe => :simple_entry)
-  #       
-  #       entry = Hash.from_xml entry
-  #       entry["article"]["id"].should == "uri:1"
-  #       entry.article.title.should == "a great article"
-  #       # entry.updated.should == DateTime.parse(time.xmlschema)
-  #     end
-  #   
-  #   end
-  #   
-  # end
-  # 
-
-# end
