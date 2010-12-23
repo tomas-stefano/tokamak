@@ -13,7 +13,9 @@ collection(@activities) do |collection|
 	end
 end
 
-And a full bodied example:
+There is an entire chapter on tokamak usage on Restfulie's documentation. Go for it! If it still does not show what you want to generate, feel free to ask at Restfulie's mailing list.
+
+== A full bodied example
 
 collection(@activities) do |collection|
   collection.members do |member, activity|
