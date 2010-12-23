@@ -6,47 +6,47 @@ Tokamak is a hypermedia template engine created to enpower Restfulie.
 
 Based on Cipriani's example on the Restfulie mailing list, this is a simple Tokamak description:
 
-collection(@activities) do |collection|
+  collection(@activities) do |collection|
 	collection.members do |m, activity|
 		member.values { |v| v.id = activity.id }
 		member.link "similar", url_for activity.similar
 	end
-end
+  end
 
 There is an entire chapter on tokamak usage on Restfulie's documentation. Go for it! If it still does not show what you want to generate, feel free to ask at Restfulie's mailing list.
 
 == A full bodied example
 
-collection(@activities) do |collection|
-  collection.members do |member, activity|
-    member.values { |values|
-
-      values.id           activity.id
-      values.title        activity.title
-
-      values.actor { 
-         values.type activity.actor_type.downcase
-         values.id   activity.actor_id
-      }
-
-      values.verbs  activity.verbs
-
-      values.object {
-        values.type activity.object_type.downcase
-        values.id   activity.object_id 
-        values.content activity.object.content if activity.object_content?
-      } 
-
-      if activity.indirect_object
-        values.indirect_object {
-          values.type activity.indirect_object_type.downcase
-          values.id   activity.indirect_object_id
-        }
-      end
-    }
-
+  collection(@activities) do |collection|
+    collection.members do |member, activity|
+      member.values { |values|
+    
+       values.id           activity.id
+       values.title        activity.title
+    
+       values.actor { 
+          values.type activity.actor_type.downcase
+          values.id   activity.actor_id
+       }
+    
+       values.verbs  activity.verbs
+    
+       values.object {
+         values.type activity.object_type.downcase
+         values.id   activity.object_id 
+         values.content activity.object.content if activity.object_content?
+       } 
+    
+       if activity.indirect_object
+         values.indirect_object {
+           values.type activity.indirect_object_type.downcase
+           values.id   activity.indirect_object_id
+         }
+       end
+     }
+    
+    end
   end
-end
 
 == Team
 
