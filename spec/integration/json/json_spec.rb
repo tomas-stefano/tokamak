@@ -150,7 +150,7 @@ describe Tokamak do
       it "should raise error for converter without recipe" do
         lambda {
           to_json
-        }.should raise_error(Restfulie::Common::Error::ConverterError, "Recipe required")
+        }.should raise_error(Tokamak::ConverterError, "Recipe required")
       end
       
     end
