@@ -17,6 +17,10 @@ group :development do
 	end
 end
 
+group :test do
+	gem "nokogiri"
+end
+
 gem "activesupport", ">= 3.0.0"
 gem "actionpack", ">= 3.0.0"
 gem "libxml-ruby"

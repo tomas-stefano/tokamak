@@ -14,19 +14,48 @@ class Item
   end
 end
 
-
 describe Tokamak do
   describe 'Xml' do
   
-    describe "Entry" do
+    describe "pure to_xml method" do
       
-        it "should use a default recipe extracting first root element that serializes an entire object if responds to to_xml" do
-          time = Time.now
-          an_article = {:article => {:id => 1, :title => "a great article", :updated => time}}
-          
-          entry = to_xml(an_article)
-          entry.should == an_article[:article].to_xml(:root => "article")
+      it "should use a default recipe extracting first root element that serializes an entire object if responds to to_xml" do
+        time = Time.now
+        an_article = {:article => {:id => 1, :title => "a great article", :updated => time}}
+        
+        entry = to_xml(an_article)
+        entry.should == an_article[:article].to_xml(:root => "article")
+      end
+
+      it "should use a default recipe that serializes an entire object if responds to to_xml" do
+        time = Time.now
+        an_article = {:id => 1, :title => "a great article", :updated => time}
+        
+        entry = to_xml(an_article)
+        entry.should == an_article.to_xml
+      end
+    
+    end
+      
+    describe "entry dsl" do
+      
+      it "should create an entry from builder DSL" do
+        an_article = {:article => {:id => 1, :title => "a great article"}}
+
+        entry = to_xml(an_article) do |member, article|
+          member.values do |values|
+            values.id      "uri:#{article[:article][:id]}"            
+            values.title   article[:article][:title]
+          end
+
+          member.link("image", "http://example.com/image/1")
+          member.link("image", "http://example.com/image/2", :type => "application/atom+xml")                                
         end
+
+        entry = Hash.from_xml entry
+        entry["article"]["id"].should == "uri:1"
+        entry["article"]["title"].should == "a great article"
+      end
     
     end
     it 'should y' do
@@ -121,31 +150,7 @@ end
   #   end
   # 
 
-  #     it "should use a default recipe that serializes an entire object if responds to to_xml" do
-  #       time = Time.now
-  #       an_article = {:id => 1, :title => "a great article", :updated => time}
-  #       
-  #       entry = to_xml(an_article)
-  #       entry.should == an_article.to_xml
-  #     end
-  # 
-  #     it "should create an entry from builder DSL" do
-  #       an_article = {:article => {:id => 1, :title => "a great article"}}
-  #       
-  #       entry = to_xml(an_article) do |member, article|
-  #         member.values do |values|
-  #           values.id      "uri:#{article[:article][:id]}"            
-  #           values.title   article[:article][:title]
-  #         end
-  #         
-  #         member.link("image", "http://example.com/image/1")
-  #         member.link("image", "http://example.com/image/2", :type => "application/atom+xml")                                
-  #       end
-  #       
-  #       entry = Hash.from_xml entry
-  #       entry["article"]["id"].should == "uri:1"
-  #       entry["article"]["title"].should == "a great article"
-  #     end
+
   # 
   #     it "should be able to declare links inside values block" do
   #       an_article = {:article => {:id => 1, :title => "a great article"}}

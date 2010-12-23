@@ -1,3 +1,5 @@
+require 'nokogiri'
+
 module Tokamak
   module Xml
     autoload :Base, 'tokamak/xml/base'

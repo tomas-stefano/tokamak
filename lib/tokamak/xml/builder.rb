@@ -6,7 +6,7 @@ module Tokamak
       def initialize(obj, options = {})
         @doc    = Nokogiri::XML::Document.new
         @obj    = obj
-        root = options[:root] || Restfulie::Common::Converter.root_element_for(obj)
+        root = options[:root] || Tokamak.root_element_for(obj)
         @parent = @doc.create_element(root)
         @parent.parent = @doc
       end
@@ -44,7 +44,7 @@ module Tokamak
         collection = a_collection || @obj 
         raise Error::BuilderError("Members method require a collection to execute") unless collection.respond_to?(:each)
         collection.each do |member|
-          root = options[:root] || Restfulie::Common::Converter.root_element_for(member)
+          root = options[:root] || Tokamak.root_element_for(member)
           entry = @doc.create_element(root)
           entry.parent = @parent
           @parent = entry
