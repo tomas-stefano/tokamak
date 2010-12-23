@@ -1,10 +1,10 @@
 module Tokamak
   module Representation
   class Json
-    autoload :Base, 'restfulie/common/representation/json/base' 
-    autoload :KeysAsMethods, 'restfulie/common/representation/json/keys_as_methods' 
-    autoload :Link, 'restfulie/common/representation/json/link' 
-    autoload :LinkCollection, 'restfulie/common/representation/json/link_collection' 
+    autoload :Base, 'tokamak/representation/json/base' 
+    autoload :KeysAsMethods, 'tokamak/representation/json/keys_as_methods' 
+    autoload :Link, 'tokamak/representation/json/link' 
+    autoload :LinkCollection, 'tokamak/representation/json/link_collection' 
     extend Base::ClassMethods
   end
 end

@@ -3,16 +3,16 @@ require 'nokogiri'
 module Tokamak
   module Representation
   module Atom
-    autoload :Factory, 'restfulie/common/representation/atom/factory'
-    autoload :XML, 'restfulie/common/representation/atom/xml'
-    autoload :Base, 'restfulie/common/representation/atom/base'
-    autoload :TagCollection, 'restfulie/common/representation/atom/tag_collection'
-    autoload :Link, 'restfulie/common/representation/atom/link'
-    autoload :Person, 'restfulie/common/representation/atom/person'
-    autoload :Category, 'restfulie/common/representation/atom/category'
-    autoload :Feed, 'restfulie/common/representation/atom/feed'
-    autoload :Entry, 'restfulie/common/representation/atom/entry'
-    autoload :Source, 'restfulie/common/representation/atom/source'
+    autoload :Factory, 'tokamak/representation/atom/factory'
+    autoload :XML, 'tokamak/representation/atom/xml'
+    autoload :Base, 'tokamak/representation/atom/base'
+    autoload :TagCollection, 'tokamak/representation/atom/tag_collection'
+    autoload :Link, 'tokamak/representation/atom/link'
+    autoload :Person, 'tokamak/representation/atom/person'
+    autoload :Category, 'tokamak/representation/atom/category'
+    autoload :Feed, 'tokamak/representation/atom/feed'
+    autoload :Entry, 'tokamak/representation/atom/entry'
+    autoload :Source, 'tokamak/representation/atom/source'
   end
 end
 end

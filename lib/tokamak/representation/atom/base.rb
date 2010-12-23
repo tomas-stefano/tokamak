@@ -103,7 +103,7 @@ module Tokamak
         @contributors
       end
     
-      include Tokamak::Links
+      include Tokamak::Representation::Links
 
       # It has one required attribute, href, and five optional attributes: rel, type, hreflang, title, and length
       def links
