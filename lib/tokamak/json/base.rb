@@ -35,7 +35,7 @@ module Tokamak
             if obj.kind_of?(Hash) || obj.kind_of?(Array)
               return Tokamak::Representation::Json.create(obj)
             else
-              raise Tokamak::Error::ConverterError.new("Recipe required")
+              raise Tokamak::ConverterError.new("Recipe required")
             end
           end
                   
@@ -59,7 +59,7 @@ module Tokamak
           if obj.kind_of?(::String)
             Tokamak::Representation::Json.create(obj)
           else
-            raise Tokamak::Error::ConverterError.new("It was not possible to convert this object to a Hash")
+            raise Tokamak::ConverterError.new("It was not possible to convert this object to a Hash")
           end
         end
   

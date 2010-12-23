@@ -43,7 +43,7 @@ module Tokamak
         class << self; self; end
       end
       
-      include Tokamak::Links
+      include Tokamak::Representation::Links
 
       # easy accessors to links
       def links

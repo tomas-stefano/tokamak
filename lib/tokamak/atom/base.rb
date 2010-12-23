@@ -36,12 +36,12 @@ module Tokamak
             recipe = @@recipes[options[:recipe]]
           else
             return obj if obj.respond_to?(:atom_type) && (obj.atom_type == "feed" || obj.atom_type == "entry")
-            raise Tokamak::Error::ConverterError.new("Recipe required")
+            raise Tokamak::ConverterError.new("Recipe required")
           end
           
           # execute with the builder if a recipe is set (even if the obj is an atom)
           options[:atom_type] ||= obj.respond_to?(:each) ? :feed : :entry
-          raise Tokamak::Error::ConverterError.new("Undefined atom type #{options[:atom_type]}") unless [:entry,:feed].include?(options[:atom_type])
+          raise Tokamak::ConverterError.new("Undefined atom type #{options[:atom_type]}") unless [:entry,:feed].include?(options[:atom_type])
   
           # Create representation and proxy
           builder = Builder.new(options[:atom_type], obj)

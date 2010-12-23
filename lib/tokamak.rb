@@ -3,6 +3,7 @@ require 'tokamak/json'
 require 'tokamak/atom'
 require 'tokamak/values'
 require 'tokamak/representation'
+require 'tokamak/error'
 
 module Tokamak
   

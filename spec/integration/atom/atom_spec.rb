@@ -159,7 +159,7 @@ describe Tokamak do
       it "should raise error for converter without recipe" do
         lambda {
           to_atom
-        }.should raise_error(Tokamak::Error::ConverterError, "Recipe required")
+        }.should raise_error(Tokamak::ConverterError, "Recipe required")
       end
       
       it "raise error to invalid atom type" do
@@ -177,7 +177,7 @@ describe Tokamak do
           end
           
           Tokamak::Atom.to_atom(obj, :recipe => :simple_entry, :atom_type => :foo)
-        }.should raise_error(Tokamak::Error::ConverterError, "Undefined atom type foo")
+        }.should raise_error(Tokamak::ConverterError, "Undefined atom type foo")
       end
     end
 
