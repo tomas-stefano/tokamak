@@ -79,6 +79,26 @@ describe Tokamak do
         entry["article"]["domain"]["link"].size.should == 2
       end
       
+      it "should be able to method missing to define values" do
+        an_article = {:article => {:id => 1, :title => "a great article"}}
+        
+        entry = to_xml(an_article) do |member, article|
+          member.id      "uri:#{article[:article][:id]}"            
+          member.title   article[:article][:title]
+            
+          member.domain("xmlns" => "http://a.namespace.com") {
+            member.link("image", "http://example.com/image/1")
+            member.link("image", "http://example.com/image/2", :type => "application/atom+xml")
+          }
+          
+        end
+        
+        entry = Hash.from_xml entry
+        entry["article"]["id"].should == "uri:1"
+        entry["article"]["title"].should == "a great article"
+        entry["article"]["domain"]["link"].size.should == 2
+      end
+
       it "should create an entry from an already declared recipe" do
         describe_recipe(:simple_entry) do |member, article|
           member.values do |values|

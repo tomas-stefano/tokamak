@@ -11,6 +11,12 @@ module Tokamak
         @parent.parent = @doc
       end
       
+      def method_missing(sym, *args, &block)
+        values do |v|
+          v.send sym, *args, &block
+        end
+      end
+      
       def values(options = {}, &block)
         options.each do |key,value|
           attr = key.to_s
