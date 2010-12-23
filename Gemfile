@@ -10,4 +10,12 @@ group :development do
   gem "bundler", "~> 1.0.0"
   gem "jeweler", "~> 1.5.2"
   gem "rcov", ">= 0"
+	if RUBY_VERSION < "1.9"
+	  gem "ruby-debug"
+	else
+	  gem "ruby-debug19", :require => "ruby-debug"
+	end
 end
+
+gem "activesupport", ">= 3.0.0"
+gem "libxml-ruby"

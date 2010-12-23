@@ -13,10 +13,10 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "tokamak"
-  gem.homepage = "http://github.com/Guilherme Silveira/tokamak"
+  gem.homepage = "http://github.com/caelum/tokamak"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{A template engine for hypermedia resources}
+  gem.description = %Q{A template engine for hypermedia resources}
   gem.email = "guilherme.silveira@caelum.com.br"
   gem.authors = ["Guilherme Silveira"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
