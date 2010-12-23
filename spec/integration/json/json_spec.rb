@@ -93,8 +93,8 @@ describe Tokamak do
         end
         
         entry = Tokamak::Json.to_hash(entry)
-        entry.id.should == "uri:1"
-        entry.title.should == "a great article"
+        entry["id"].should == "uri:1"
+        entry["title"].should == "a great article"
       end
     
       it "should be able to declare links inside values block" do
@@ -115,10 +115,10 @@ describe Tokamak do
         end
     
         entry = Tokamak::Json.to_hash(entry)
-        entry.id.should == "uri:1"
-        entry.title.should == "a great article"
+        entry["id"].should == "uri:1"
+        entry["title"].should == "a great article"
         
-        entry.domain.link.first.rel.should == "image"
+        entry["domain"]["link"][0].rel.should == "image"
       end
       
       it "should create a member from an already declared recipe" do
@@ -140,8 +140,8 @@ describe Tokamak do
         entry = to_json(an_article, :recipe => :simple_entry)
         entry = Tokamak::Json.to_hash(entry)
                 
-        entry.id.should == "uri:1"
-        entry.title.should == "a great article"
+        entry["id"].should == "uri:1"
+        entry["title"].should == "a great article"
       end
     
     end

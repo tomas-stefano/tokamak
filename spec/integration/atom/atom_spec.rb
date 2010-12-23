@@ -52,8 +52,6 @@ describe Tokamak do
           end
         end
         
-        # puts feed.to_xml
-        
         feed.atom_type.should == "feed"
         feed.id.should == "http://example.com/feed"
         feed.title.should == "Feed"
@@ -93,8 +91,6 @@ describe Tokamak do
           member.link("image", "http://example.com/image/2", :type => "application/atom+xml")                                
         end
         
-        # puts entry.to_xml
-        
         entry.atom_type.should == "entry"
         entry.id.should == "uri:1"
         entry.title.should == "a great article"
@@ -118,7 +114,6 @@ describe Tokamak do
           end
         end
 
-        #puts entry.to_xml
         entry.atom_type.should == "entry"
         entry.id.should == "uri:1"
         entry.title.should == "a great article"
@@ -144,8 +139,6 @@ describe Tokamak do
         an_article = {:id => 1, :title => "a great article", :updated => time}
         
         entry = to_atom(an_article, :atom_type => :entry, :recipe => :simple_entry)
-        
-        #puts entry.to_xml
         
         entry.atom_type.should == "entry"
         entry.id.should == "uri:1"

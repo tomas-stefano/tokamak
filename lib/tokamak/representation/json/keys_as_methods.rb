@@ -20,7 +20,7 @@ module Tokamak
   
       def method_missing(name, *args)
         method_name = name.to_s
-        if method_name.last == '='
+        if method_name[-1] == "="[-1] #1.8 and 1.9 compatible
           self[method_name.chop] = args[0]
         else
           self[method_name]

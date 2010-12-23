@@ -29,8 +29,8 @@ module Tokamak
       def extensions
         result = []
         @doc.children.each do |e|
-          if e.element?
-            result << e unless @reserved.map(&:to_s).include?(e.node_name)
+          if e.element? && !@reserved.map(&:to_s).include?(e.node_name)
+            result << e
           end
         end
         return result
