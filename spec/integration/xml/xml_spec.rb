@@ -1,22 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
-describe 'x' do
-  
-  it 'should y' do
-    execute {
-      puts "invoking"
-      # collection([Object.new]) do |col|
-      # end
-    }
-  end
-  
-  def execute(&block)
-    where = Object.new.extend(Tokamak::Xml::Helpers)
-    where.instance_eval &block
-  end
-  
-end
-
 class SimpleClass
   attr_accessor :id, :title, :updated
   def initialize(id,title,updated)
@@ -31,8 +14,50 @@ class Item
   end
 end
 
+
 describe Tokamak do
-  # describe 'Xml' do
+  describe 'Xml' do
+  
+    describe "Entry" do
+      
+        it "should use a default recipe extracting first root element that serializes an entire object if responds to to_xml" do
+          time = Time.now
+          an_article = {:article => {:id => 1, :title => "a great article", :updated => time}}
+          
+          entry = to_xml(an_article)
+          entry.should == an_article[:article].to_xml(:root => "article")
+        end
+    
+    end
+    it 'should y' do
+      execute {
+        puts "invoking"
+        # collection([Object.new]) do |col|
+        # end
+      }
+    end
+  
+    def execute(&block)
+      where = Object.new.extend(Tokamak::Xml::Helpers)
+      where.instance_eval &block
+    end
+  
+  end
+  
+  def to_xml(*args, &recipe)
+    Tokamak::Xml.to_xml(*args, &recipe)
+  end
+  
+  def describe_recipe(*args, &recipe)
+    Tokamak::Xml.describe_recipe(*args, &recipe)
+  end
+  
+  def simple_object(*args)
+    SimpleClass.new(*args)
+  end
+
+end
+
   # 
   #   describe "Feed" do
   #     it "should create a feed from builder DSL" do
@@ -95,16 +120,7 @@ describe Tokamak do
   # 
   #   end
   # 
-  #   describe "Entry" do
-  # 
-  #     it "should use a default recipe extracting first root element that serializes an entire object if responds to to_xml" do
-  #       time = Time.now
-  #       an_article = {:article => {:id => 1, :title => "a great article", :updated => time}}
-  #       
-  #       entry = to_xml(an_article)
-  #       entry.should == an_article[:article].to_xml(:root => "article")
-  #     end
-  # 
+
   #     it "should use a default recipe that serializes an entire object if responds to to_xml" do
   #       time = Time.now
   #       an_article = {:id => 1, :title => "a great article", :updated => time}
@@ -181,16 +197,5 @@ describe Tokamak do
   #   
   # end
   # 
-  # def to_xml(*args, &recipe)
-  #   Restfulie::Common::Converter::Xml.to_xml(*args, &recipe)
-  # end
-  # 
-  # def describe_recipe(*args, &recipe)
-  #   Restfulie::Common::Converter::Xml.describe_recipe(*args, &recipe)
-  # end
-  # 
-  # def simple_object(*args)
-  #   Restfulie::Common::Converter::Test::SimpleClass.new(*args)
-  # end
 
-end
+# end

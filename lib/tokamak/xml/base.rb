@@ -37,7 +37,9 @@ module Tokamak
           elsif options[:recipe]
             recipe = @@recipes[options[:recipe]]
           elsif obj.kind_of?(Hash) && obj.size==1
-            return obj.values.first.to_xml(:root => obj.keys.first)
+            root = obj.values.first
+            puts root.class
+            return root.to_xml(:root => obj.keys.first)
           else
             return obj.to_xml
           end

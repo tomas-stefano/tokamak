@@ -18,4 +18,5 @@ group :development do
 end
 
 gem "activesupport", ">= 3.0.0"
+gem "actionpack", ">= 3.0.0"
 gem "libxml-ruby"
